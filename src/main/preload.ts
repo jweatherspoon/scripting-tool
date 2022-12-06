@@ -20,8 +20,7 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
     async sendAsync(channel: Channels, ...args: unknown[]): Promise<unknown> {
-      const id = nanoid();
-      const json = await ipcRenderer.invoke(channel, { id, args });
+      const json = await ipcRenderer.invoke(channel, ...args);
       return JSON.parse(json);
     },
     async invokeScript<TArg, TReturn>(
