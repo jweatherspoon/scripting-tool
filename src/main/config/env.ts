@@ -1,5 +1,7 @@
+import path from 'path';
+
 export const config = {
   plugins: {
-    directory: process.env.PLUGIN_DIRECTORY ?? 'src/main/plugins/scripts',
+    directory: path.join(process.cwd(), 'src/main/plugins/scripts'),
   },
 };
