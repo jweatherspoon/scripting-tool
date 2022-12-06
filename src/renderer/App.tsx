@@ -1,6 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
+import { PluginList } from './components/plugins/plugin-list';
 
 const Hello = () => {
   return (
@@ -9,6 +10,7 @@ const Hello = () => {
         <img width="200" alt="icon" src={icon} />
       </div>
       <h1>electron-react-boilerplate</h1>
+      <PluginList />
       <div className="Hello">
         <a
           href="https://electron-react-boilerplate.js.org/"

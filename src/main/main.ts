@@ -8,12 +8,18 @@
  * When running `npm run build` or `npm run build:main`, this file is compiled to
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
+import 'reflect-metadata';
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+
+import { iocContainer } from './config/ioc';
+import { ServiceIdentifier } from './config/types';
+import { Ipc } from './communication/ipc';
+import { PluginManager } from './plugins/plugin-manager';
 
 class AppUpdater {
   constructor() {
@@ -31,6 +37,14 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
+const ipc: Ipc = iocContainer.get(ServiceIdentifier.Ipc);
+const pluginManager: PluginManager = iocContainer.get(
+  ServiceIdentifier.PluginManager
+);
+
+ipc.initialize();
+pluginManager.initialize();
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -46,7 +60,8 @@ if (isDebug) {
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS'];
+  const extensions: string[] = [];
+  // const extensions = ['REACT_DEVELOPER_TOOLS'];
 
   return installer
     .default(

@@ -1,0 +1,19 @@
+- load scripts w dynamic imports
+- each script file should export
+  - getTypeDefinitions(): { TArgs } <- in json format
+  - async execute(args: TArgs): Promise<string>
+
+
+- we have a class in main that reads the scripts folder and loads its info
+- renderer can request that data from main
+- main sends bacck the name and type definitions
+- renderer renders sections for generating the input and invoking the script
+- input section is a json editor, button to invoke
+- user hits execute and the results are shown in output section as
+- renderer also has a section where you can save a specific input and name it
+  - last used input is attached to the endpoint
+  - saved inputs have scope, displayed in dropdown, sorted alphabetically
+  - saved inputs can be stored only against a subsection of scripts
+    - defined by hierarchy structure in scripts folder
+- execute button disabled if input doesnt match type structure?
+  - or just changes color to indicate things could be bad
