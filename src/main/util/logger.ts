@@ -27,7 +27,14 @@ export class Logger {
 
   log(severity: Severity, msg: string, ...data: any) {
     const timestamp = new Date();
-    const message = `[${timestamp}] - [${severity}] - ${msg}`;
+    const message = `[${timestamp.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    })}] - [${severity}] - ${msg}`;
     console.log(message, ...data);
   }
 }

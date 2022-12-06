@@ -1,7 +1,13 @@
 import { readdir } from 'fs/promises';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { config } from '../config/env';
+import { ServiceIdentifier } from '../config/types';
 import { PluginData, PluginDefinition } from '../models/plugins';
+import { Logger } from '../util';
+
+function validatePlugin(plugin: PluginDefinition): boolean {
+  return !!plugin.execute && !!plugin.getPluginData;
+}
 
 @injectable()
 export class PluginManager {
@@ -11,6 +17,10 @@ export class PluginManager {
     string,
     { filename: string; data: PluginData }
   > = new Map();
+
+  constructor(
+    @inject(ServiceIdentifier.Logger) private readonly logger: Logger
+  ) {}
 
   async initialize(): Promise<void> {
     const filenames = await readdir(this.directory);
@@ -39,14 +49,18 @@ export class PluginManager {
     return Promise.resolve();
   }
 
-  private async getPluginDataInternal(filename: string): Promise<PluginData> {
-    const plugin: PluginDefinition = await import(
-      `${this.directory}/${filename}`
-    );
+  private async getPluginDataInternal(filename: string): Promise<void> {
+    try {
+      const plugin: PluginDefinition = await import(
+        `${this.directory}/${filename}`
+      );
 
-    const pluginData = await plugin.getPluginData();
-    this.plugins.set(pluginData.name, { filename, data: pluginData });
-
-    return pluginData;
+      if (validatePlugin(plugin)) {
+        const pluginData = await plugin.getPluginData();
+        this.plugins.set(pluginData.name, { filename, data: pluginData });
+      }
+    } catch (e) {
+      this.logger.error('Failed to get plugin data', e);
+    }
   }
 }
