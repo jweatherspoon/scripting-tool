@@ -23,19 +23,5 @@ contextBridge.exposeInMainWorld('electron', {
       const json = await ipcRenderer.invoke(channel, ...args);
       return JSON.parse(json);
     },
-    async invokeScript<TArg, TReturn>(
-      name: string,
-      args: TArg
-    ): Promise<TReturn> {
-      const id = nanoid();
-      const result = new Promise<TReturn>((resolve) => {
-        ipcRenderer.once(Channels.Subscription, (_event, data) =>
-          resolve(data.result)
-        );
-      });
-
-      ipcRenderer.send(Channels.InvokeScript, { id, name, args });
-      return result;
-    },
   },
 });

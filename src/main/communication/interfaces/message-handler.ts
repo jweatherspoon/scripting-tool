@@ -1,4 +1,6 @@
+import { Message } from '../../models/messages';
+
 export interface MessageHandler {
   id: string;
-  handle(msg: any): Promise<any>;
+  handle(msg: Message): Promise<any>;
 }

@@ -5,14 +5,15 @@ import {
   MessageHandlerFactory,
   messageHandlers,
 } from '../communication/message-handlers';
+import { Environment } from '../plugins/environment';
 import { PluginManager } from '../plugins/plugin-manager';
 import { Logger } from '../util';
 import { ServiceIdentifier } from './types';
 
 const iocContainer = new Container();
 
+iocContainer.bind(Environment).toSelf().inSingletonScope();
 iocContainer.bind(ServiceIdentifier.Logger).to(Logger).inSingletonScope();
-
 iocContainer.bind(ServiceIdentifier.Ipc).to(Ipc).inSingletonScope();
 
 iocContainer

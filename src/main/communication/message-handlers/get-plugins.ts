@@ -13,7 +13,7 @@ export class GetPluginsMessageHandler implements MessageHandler {
     private readonly pluginManager: PluginManager
   ) {}
 
-  async handle(_msg: any): Promise<any> {
+  async handle(): Promise<any> {
     return this.pluginManager.getPluginData();
   }
 }

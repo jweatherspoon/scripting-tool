@@ -17,3 +17,4 @@
     - defined by hierarchy structure in scripts folder
 - execute button disabled if input doesnt match type structure?
   - or just changes color to indicate things could be bad
+- user can save environments w variables passed to the scripts

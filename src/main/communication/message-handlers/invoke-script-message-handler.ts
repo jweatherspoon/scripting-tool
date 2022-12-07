@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { ServiceIdentifier } from '../../config/types';
 import { Channels } from '../../models/ipc';
+import { InvokePluginMessage } from '../../models/messages';
 import { PluginManager } from '../../plugins/plugin-manager';
 import { MessageHandler } from '../interfaces/message-handler';
 
@@ -13,7 +14,7 @@ export class InvokeScriptMessageHandler implements MessageHandler {
     private readonly pluginManager: PluginManager
   ) {}
 
-  async handle(data: { name: string; input: string }): Promise<any> {
+  async handle(data: InvokePluginMessage): Promise<any> {
     return this.pluginManager.invokePlugin(data.name, data.input);
   }
 }
