@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Box, Stack } from '@mui/system';
+import { Button, Typography } from '@mui/material';
+import { PlayArrowOutlined } from '@mui/icons-material';
 import { PageProps } from '../../models/view-info';
 import { useIpc } from '../../hooks/useIpc';
 import { Channels } from '../../../main/models/ipc';
@@ -35,9 +37,48 @@ export const PluginsPage: React.FC<PageProps> = (props) => {
         gridTemplateColumns: '1fr 3fr',
       }}
     >
-      <Stack sx={{ w: 0.2 }}>{plugins}</Stack>
-      <Box>
-        <JsonEditor text={input} setText={setInput} rows={10} />
+      <Stack sx={{ w: 1 }}>
+        <Typography variant='h5' textTransform='uppercase'>
+          plugins
+        </Typography>
+        {plugins}
+      </Stack>
+      <Box
+        sx={{
+          h: 1,
+          w: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          p: 1,
+          gap: 2,
+        }}
+      >
+        {selectedPlugin ? (
+          <>
+            <Button
+              variant='outlined'
+              sx={{ alignSelf: 'flex-end' }}
+              onClick={() => invoke?.()}
+            >
+              Execute
+              <PlayArrowOutlined />
+            </Button>
+            <JsonEditor
+              label='Input'
+              text={input}
+              setText={setInput}
+              rows={10}
+            />
+            <JsonEditor label='Output' text={output} readonly rows={10} />
+          </>
+        ) : (
+          <Typography
+            variant='h4'
+            sx={{ alignSelf: 'center', justifySelf: 'center' }}
+          >
+            Select a plugin!
+          </Typography>
+        )}
       </Box>
     </Box>
   );

@@ -9,7 +9,10 @@ export const PluginCard: React.FC<PluginCardProps> = ({
   return (
     <Card
       onClick={() => select?.()}
-      sx={{ bgcolor: selected ? 'lightgrey' : 'transparent' }}
+      sx={{
+        cursor: 'pointer',
+        bgcolor: selected ? 'lightgrey' : 'transparent',
+      }}
     >
       <Typography variant='h6'>{data.name}</Typography>
     </Card>
