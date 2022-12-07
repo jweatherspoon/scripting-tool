@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Channels } from '../../models/ipc';
-import { EnvironmentMessage, Message } from '../../models/messages';
+import { EnvironmentMessage } from '../../models/messages';
 import { Environment } from '../../plugins/environment';
 import { MessageHandler } from '../interfaces/message-handler';
 
