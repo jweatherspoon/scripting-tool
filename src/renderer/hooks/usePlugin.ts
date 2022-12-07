@@ -6,6 +6,10 @@ export const usePlugin = (name: string) => {
   const [output, setOutput] = useState('');
 
   const invoke = async () => {
+    if (!name) {
+      return;
+    }
+
     const response = await window.electron.ipcRenderer.sendAsync(
       Channels.InvokeScript,
       { name, input }

@@ -1,20 +1,23 @@
+import { Card, Typography } from '@mui/material';
 import { PluginData } from '../../../main/models/plugins';
-import { usePlugin } from '../../hooks/usePlugin';
 
 export const PluginCard: React.FC<PluginCardProps> = ({
   data,
+  select,
+  selected,
 }: PluginCardProps) => {
-  const { input, setInput, output, invoke } = usePlugin(data.name);
-
   return (
-    <div>
-      <button onClick={invoke} type="button">
-        {data.name}
-      </button>
-    </div>
+    <Card
+      onClick={() => select?.()}
+      sx={{ bgcolor: selected ? 'lightgrey' : 'transparent' }}
+    >
+      <Typography variant='h6'>{data.name}</Typography>
+    </Card>
   );
 };
 
 export interface PluginCardProps {
   data: PluginData;
+  selected?: boolean;
+  select?: () => void;
 }
