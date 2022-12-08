@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Channels } from '../../main/models/ipc';
 
-export const useIpc = (channel: Channels, args?: unknown[]) => {
+export const useIpc = (channel: Channels, ...args: unknown[]) => {
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState<any>(undefined);
 
