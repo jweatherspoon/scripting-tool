@@ -2,7 +2,11 @@ import { readdir } from 'fs/promises';
 import { inject, injectable } from 'inversify';
 import { config } from '../config/env';
 import { ServiceIdentifier } from '../config/types';
-import { PluginData, PluginDefinition } from '../models/plugins';
+import {
+  PluginData,
+  PluginDefinition,
+  PluginExecutionEnvironment,
+} from '../models/plugins';
 import { Logger } from '../util';
 import { Environment } from './environment';
 
@@ -46,7 +50,7 @@ export class PluginManager {
       );
 
       if (plugin) {
-        return plugin.execute(this.env, input);
+        return plugin.execute(this.getContext(), input);
       }
     }
 
@@ -66,5 +70,11 @@ export class PluginManager {
     } catch (e) {
       this.logger.error('Failed to get plugin data', e);
     }
+  }
+
+  private getContext(): PluginExecutionEnvironment {
+    return {
+      env: this.env,
+    };
   }
 }
