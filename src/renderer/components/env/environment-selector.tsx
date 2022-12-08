@@ -17,6 +17,7 @@ export const EnvironmentSelector = () => {
       variant='standard'
       value={selectedEnv?.name ?? 'NO ENV'}
       onChange={(e) => envs.length && updateEnv(e.target.value)}
+      inputProps={{ sx: { textAlign: 'center' } }}
     >
       {options.length ? options : <MenuItem value='NO ENV'>NO ENV</MenuItem>}
     </Select>
