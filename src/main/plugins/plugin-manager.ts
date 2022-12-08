@@ -4,6 +4,7 @@ import { config } from '../config/env';
 import { ServiceIdentifier } from '../config/types';
 import { PluginData, PluginDefinition } from '../models/plugins';
 import { Logger } from '../util';
+import { Environment } from './environment';
 
 function validatePlugin(plugin: PluginDefinition): boolean {
   return !!plugin.execute && !!plugin.getPluginData;
@@ -19,7 +20,8 @@ export class PluginManager {
   > = new Map();
 
   constructor(
-    @inject(ServiceIdentifier.Logger) private readonly logger: Logger
+    @inject(ServiceIdentifier.Logger) private readonly logger: Logger,
+    @inject(Environment) private readonly env: Environment
   ) {}
 
   async initialize(): Promise<void> {
@@ -44,7 +46,7 @@ export class PluginManager {
       );
 
       if (plugin) {
-        return plugin.execute(input);
+        return plugin.execute(this.env, input);
       }
     }
 
