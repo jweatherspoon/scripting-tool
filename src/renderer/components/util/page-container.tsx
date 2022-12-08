@@ -7,7 +7,7 @@ import { EnvironmentSelector } from '../env/environment-selector';
 export const PageContainer: React.FC<PageProps> = ({ view }: PageProps) => {
   const Page = React.lazy(() => import(`../pages/${view.key}`));
   return (
-    <Box>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
           <Typography

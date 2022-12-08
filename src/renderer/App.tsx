@@ -1,4 +1,6 @@
-import { Navigator } from './components/util/navigator';
+import { Stack } from '@mui/system';
+import { Navigator } from './components/util/nav/navigator';
+import { navigationConfig } from './config/nav';
 import { EnvironmentContext } from './context/environment-context';
 import { useEnvironment } from './hooks/useEnvironment';
 
@@ -13,7 +15,9 @@ export default function App() {
         updateEnv: loadEnvironment,
       }}
     >
-      <Navigator />
+      <Stack direction='row'>
+        <Navigator config={navigationConfig} />
+      </Stack>
     </EnvironmentContext.Provider>
   );
 }
