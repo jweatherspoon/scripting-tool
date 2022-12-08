@@ -31,7 +31,9 @@ export class PluginManager {
   }
 
   async getPluginData(): Promise<PluginData[]> {
-    return [...this.plugins.values()].map((x) => x.data);
+    return [...this.plugins.values()]
+      .sort((a, b) => (a.data.name < b.data.name ? -1 : 1))
+      .map((x) => x.data);
   }
 
   async invokePlugin(name: string, input: string): Promise<string | void> {
