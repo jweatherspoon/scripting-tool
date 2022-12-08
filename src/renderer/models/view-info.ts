@@ -1,12 +1,9 @@
-import React from 'react';
-
 export interface ViewInfo {
   key: string;
   route: string;
-  props: PageProps;
-  component: React.FC<PageProps>;
+  title: string;
 }
 
 export interface PageProps {
-  title: string;
+  view: ViewInfo;
 }

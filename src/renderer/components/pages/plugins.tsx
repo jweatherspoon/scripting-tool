@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Box, Stack } from '@mui/system';
 import { Button, Typography } from '@mui/material';
 import { PlayArrowOutlined } from '@mui/icons-material';
-import { PageProps } from '../../models/view-info';
 import { useIpc } from '../../hooks/useIpc';
 import { Channels } from '../../../main/models/ipc';
 import { PluginData } from '../../../main/models/plugins';
@@ -10,7 +9,7 @@ import { PluginCard } from '../plugins/plugin-card';
 import { usePlugin } from '../../hooks/usePlugin';
 import { JsonEditor } from '../util/json-editor';
 
-export const PluginsPage: React.FC<PageProps> = (props) => {
+const PluginsPage = () => {
   const { response }: { response: PluginData[] } = useIpc(Channels.GetPlugins);
   const [selectedPluginIndex, setSelectedPluginIndex] = useState<number>(-1);
 
@@ -83,3 +82,5 @@ export const PluginsPage: React.FC<PageProps> = (props) => {
     </Box>
   );
 };
+
+export default PluginsPage;
