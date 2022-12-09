@@ -1,4 +1,5 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { Stack } from '@mui/system';
 
 import { NavigationProps } from '../../../models/view-info';
 import { NavigationPane } from './navigation-pane';
@@ -13,10 +14,10 @@ export const Navigator: React.FC<NavigationProps> = ({
 
   return (
     <Router>
-      <>
+      <Stack direction='row' sx={{ width: '100%', gap: 1 }}>
         <NavigationPane config={config} />
         <Routes>{routes}</Routes>
-      </>
+      </Stack>
     </Router>
   );
 };

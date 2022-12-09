@@ -1,6 +1,7 @@
 import { Button, Stack } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { NavigationProps } from '../../../models/view-info';
+import { Icon } from '../icon';
 
 export const NavigationPane = ({ config }: NavigationProps) => {
   const location = useLocation();
@@ -10,13 +11,13 @@ export const NavigationPane = ({ config }: NavigationProps) => {
       <Button
         sx={{
           p: 2,
-          bgcolor: location.pathname === x.route ? 'lightgray' : 'white',
+          bgcolor: location.pathname === x.route ? 'lightgray' : 'whitesmoke',
         }}
       >
-        {x.icon}
+        <Icon name={x.icon} sx={{ height: 50, width: 50 }} />
       </Button>
     </Link>
   ));
 
-  return <Stack>{navButtons}</Stack>;
+  return <Stack sx={{ gap: 1 }}>{navButtons}</Stack>;
 };

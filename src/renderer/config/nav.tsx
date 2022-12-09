@@ -1,4 +1,4 @@
-import { PowerOutlined, Settings } from '@mui/icons-material';
+import { Icons } from 'renderer/models/icons';
 import { ViewInfo } from '../models/view-info';
 
 export const navigationConfig: ViewInfo[] = [
@@ -6,12 +6,12 @@ export const navigationConfig: ViewInfo[] = [
     key: 'plugins',
     route: '/',
     title: 'Plugins',
-    icon: <PowerOutlined />,
+    icon: Icons.Plugin,
   },
   {
     key: 'env-config',
     route: '/env',
     title: 'Environments',
-    icon: <Settings />,
+    icon: Icons.Settings,
   },
 ];

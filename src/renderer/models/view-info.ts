@@ -1,8 +1,10 @@
+import { Icons } from './icons';
+
 export interface ViewInfo {
   key: string;
   route: string;
   title: string;
-  icon: JSX.Element;
+  icon: Icons;
 }
 
 export interface PageProps {
